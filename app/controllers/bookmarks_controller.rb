@@ -15,17 +15,16 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    @list = @bookmark.list
+    @bookmark.destroy
+    redirect_to list_path(@list)
+  end
   private
 
   def bookmark_params
     params.require(:bookmark).permit(:movie_id, :comment)
   end
 
-  def destroy
-    @bookmark = Bookmark.find(params[:id])
-    @list = @bookmark.list
-    raise
-    @bookmark.destroy
-    redirect_to list_path(@list)
-  end
 end
